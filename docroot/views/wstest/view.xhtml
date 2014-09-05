@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head />
+<h:body>
+	<p:messages id="messages" globalOnly="true" />
+	
+	<p:ajaxStatus onstart="statusDialog.show()"
+		onsuccess="statusDialog.hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" header="Processing ... ">
+		<h:graphicImage library="img" name="ajax-loader.gif" />
+	</p:dialog>
+	
+	<p:panel toggleable="true"
+		header="Webservice Port Address configuration">
+		<h:form id="addressForm">
+			<h:panelGrid columns="4">
+				<p:outputLabel for="portAddress" value="WS Address: " />
+				<p:inputText id="portAddress" value="#{wsTesterCtl.endPointAddress}"
+					size="50" />
+				<p:message for="portAddress" />
+				<p:commandButton value="Set" ajax="true" process="portAddress" />
+			</h:panelGrid>
+		</h:form>
+	</p:panel>
+
+	<p:spacer height="10" />
+
+	<p:layout style="min-height:500px;">
+		<p:layoutUnit position="west" resizable="true" size="167" minSize="40"
+			maxSize="200">
+			<h:form id="menuForm">
+				<p:menu>
+					<p:submenu label="Select WS Function">
+						<p:menuitem value="topupOnline" ajax="true"
+							update=":functionPanel :messages">
+							<f:setPropertyActionListener target="#{layoutCtl.functionPage}"
+								value="/views/wstest/topupOnline.xhtml" />
+						</p:menuitem>
+
+						<p:menuitem value="cardCharging" ajax="true"
+							update=":functionPanel :messages">
+							<f:setPropertyActionListener target="#{layoutCtl.functionPage}"
+								value="/views/wstest/cardCharging.xhtml" />
+						</p:menuitem>
+
+						<p:menuitem value="voucherPostpaid" ajax="true"
+							update=":functionPanel :messages">
+							<f:setPropertyActionListener target="#{layoutCtl.functionPage}"
+								value="/views/wstest/voucherPostpaid.xhtml" />
+						</p:menuitem>
+					</p:submenu>
+				</p:menu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<h:panelGroup id="functionPanel">
+				<ui:include src="#{layoutCtl.functionPage != null ? layoutCtl.functionPage : '/views/wstest/common/blank.xhtml'}" />
+			</h:panelGroup>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

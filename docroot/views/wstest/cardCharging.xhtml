@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+	<h:form id="cardChargingForm">
+		
+		<p:panel header="Scratch Card Request">
+			<h:panelGrid columns="2">
+				
+				<p:outputLabel for="agentId" value="AgentID: "/>
+				<p:inputText id="agentId" value="#{wsTesterCtl.scratchCardReq.agentId}"/>
+				
+				<p:outputLabel for="serial" value="Serial: "/>
+				<p:inputText id="serial" value="#{wsTesterCtl.scratchCardReq.serial}"/>
+				
+				<p:outputLabel for="partnerId" value="PartnerID: "/>
+				<p:inputText id="partnerId" value="#{wsTesterCtl.scratchCardReq.partnerId}"/>
+				
+				<p:outputLabel for="password" value="Password: "/>
+				<p:inputText id="password" value="#{wsTesterCtl.scratchCardReq.password}"/>
+				
+				<p:outputLabel for="requestDate" value="Request Date: "/>
+				<p:inputText id="requestDate" value="#{wsTesterCtl.scratchCardReq.requestDate}"/>
+				
+				<p:outputLabel for="requestId" value="RequestID: "/>
+				<p:inputText id="requestId" value="#{wsTesterCtl.scratchCardReq.requestId}"/>
+				
+				<p:outputLabel for="secretCode" value="Secret Code: "/>
+				<p:inputText id="secretCode" value="#{wsTesterCtl.scratchCardReq.secretCode}"/>
+				
+				<p:outputLabel for="description" value="Description: "/>
+				<p:inputText id="description" value="#{wsTesterCtl.scratchCardReq.description}"/>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Execute" process="@form" actionListener="#{wsTesterCtl.cardCharging}" update="responsePanel :messages"/>
+				</f:facet>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:spacer height="10"/>
+		
+		<p:panel id="responsePanel" header="Scratch Card Response" rendered="#{wsTesterCtl.scratchCardResp != null}">
+			<p:panelGrid columns="2">
+				<h:outputText value="Amount:" />
+				<h:outputText value="#{wsTesterCtl.scratchCardResp.amout}"/>
+				
+				<h:outputText value="Result:"/>
+				<h:outputText value="#{wsTesterCtl.scratchCardResp.result}"/>
+				
+				<h:outputText value="Result description:"/>
+				<h:outputText value="#{wsTesterCtl.scratchCardResp.resultDescription}"/>
+			</p:panelGrid>
+		</p:panel>
+		
+	</h:form>
+
+</ui:composition>
