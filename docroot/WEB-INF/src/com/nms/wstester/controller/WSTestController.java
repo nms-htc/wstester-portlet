@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.nms.iwebservice.PaymentgwPortType;
 import com.nms.iwebservice.PaymentgwPortTypeProxy;
 import com.nms.iwebservice.ScratchCardReq;
@@ -20,7 +22,8 @@ import com.nms.iwebservice.VoucherPostpaidResp;
 @ManagedBean(name = "wsTesterCtl")
 @SessionScoped
 public class WSTestController implements Serializable {
-
+	
+	private static final Log _log = LogFactoryUtil.getLog(WSTestController.class);
 	private static final long serialVersionUID = -7924893391047745877L;
 	private String endPointAddress = "http://10.8.2.101:8080/paymentws/services/paymentgw";
 	private ScratchCardReq scratchCardReq;
@@ -47,6 +50,7 @@ public class WSTestController implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Execute service success.", "Execute service success.");
 		} catch (Exception e) {
+			_log.error("[WSTestController] cardCharging() ERROR", e);
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), e.getMessage());
 		} finally {
@@ -64,6 +68,7 @@ public class WSTestController implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Execute service success.", "Execute service success.");
 		} catch (Exception e) {
+			_log.error("[WSTestController] topupOnline() ERROR", e);
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), e.getMessage());
 		} finally {
@@ -84,6 +89,7 @@ public class WSTestController implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Execute service success.", "Execute service success.");
 		} catch (Exception e) {
+			_log.error("[WSTestController] voucherPostpaid() ERROR", e);
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), e.getMessage());
 		} finally {
